@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alertas;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Departamento;
 import model.services.DepartamentoService;
 
-public class DepartamentoListController implements Initializable {
+public class DepartamentoListController implements Initializable, DataChangeListener {
 	
 	private DepartamentoService service;
 	
@@ -88,6 +89,7 @@ public class DepartamentoListController implements Initializable {
 			DepartamentoFormController controller = loader.getController();
 			controller.setDepartamento(obj);
 			controller.setDepartamentoService(new DepartamentoService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			
@@ -104,6 +106,11 @@ public class DepartamentoListController implements Initializable {
 			Alertas.showAlert("IO Exception", "Error ao carregar", e.getMessage(), AlertType.ERROR);
 		}
 		
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();	
 	}
 
 }
