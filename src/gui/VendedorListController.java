@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Vendedor;
+import model.services.DepartamentoService;
 import model.services.VendedorService;
 
 public class VendedorListController implements Initializable, DataChangeListener {
@@ -87,7 +88,7 @@ public class VendedorListController implements Initializable, DataChangeListener
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
 		tableColumnDataDeNascimento.setCellValueFactory(new PropertyValueFactory<>("DataDeNascimento"));
 		Utils.formatTableColumnDate(tableColumnDataDeNascimento, "dd/MM/yyyy");
 		tableColumnSalario.setCellValueFactory(new PropertyValueFactory<>("Salario"));
@@ -115,12 +116,13 @@ public class VendedorListController implements Initializable, DataChangeListener
 
 			VendedorFormController controller = loader.getController();
 			controller.setVendedor(obj);
-			controller.setVendedorService(new VendedorService());
+			controller.setServices(new VendedorService(), new DepartamentoService());
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Digite os dados do departamento");
+			dialogStage.setTitle("Digite os dados do vendedor");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
@@ -128,6 +130,7 @@ public class VendedorListController implements Initializable, DataChangeListener
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alertas.showAlert("IO Exception", "Error ao carregar", e.getMessage(), AlertType.ERROR);
 		}
 

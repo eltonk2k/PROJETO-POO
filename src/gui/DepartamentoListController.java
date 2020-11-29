@@ -113,6 +113,7 @@ public class DepartamentoListController implements Initializable, DataChangeList
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alertas.showAlert("IO Exception", "Error ao carregar", e.getMessage(), AlertType.ERROR);
 		}
 

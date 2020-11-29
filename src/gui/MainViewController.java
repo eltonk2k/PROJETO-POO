@@ -49,7 +49,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemAboutAction() {
-		loadView("/gui/About.fxml", x -> {});		
+		loadView("/gui/Sobre.fxml", x -> {});		
 	}
 
 	@Override
