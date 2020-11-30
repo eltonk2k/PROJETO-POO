@@ -101,7 +101,7 @@ public class VendedorFormController implements Initializable {
 	@FXML
 	public void onBtConfirmarAction(ActionEvent event) {
 		if (entity == null) {
-			throw new IllegalStateException("A entidade está em branco");
+			throw new IllegalStateException("A serviço está em branco");
 		}
 		if (service == null) {
 			throw new IllegalStateException("O serviço está em branco");
@@ -141,7 +141,7 @@ public class VendedorFormController implements Initializable {
 		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
 			exception.addErro("email", "O campo não pode está vazio");
 		}
-		obj.setName(txtEmail.getText());
+		obj.setEmail(txtEmail.getText());
 		
 		if (DtDeNascimento.getValue() == null) {
 			exception.addErro("dataDeNascimento", "O campo não pode está vazio");
